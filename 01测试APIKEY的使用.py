@@ -1,6 +1,6 @@
 from openai import OpenAI
 import os
-
+# 创建客户端对象
 client = OpenAI(
     # 如果没有配置环境变量，请用阿里云百炼API Key替换：api_key="sk-xxx"
     api_key=os.getenv("DASHSCOPE_API_KEY"),
@@ -8,12 +8,15 @@ client = OpenAI(
 )
 
 messages = [{"role": "user", "content": "你是谁"}]
+# 调用模型
 completion = client.chat.completions.create(
     model="qwen-flash",  # 您可以按需更换为其它深度思考模型
     messages=messages,
     extra_body={"enable_thinking": True},
     stream=True
 )
+
+# 处理结果
 is_answering = False  # 是否进入回复阶段
 print("\n" + "=" * 20 + "思考过程" + "=" * 20)
 for chunk in completion:
