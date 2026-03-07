@@ -1,6 +1,6 @@
 from langchain_community.embeddings import DashScopeEmbeddings
 from langchain_ollama import OllamaEmbeddings
-
+# 将文本转成向量进行相似性搜素
 # 本地导入包
 # from langchain_ollama import OllamaEmbeddings
 
