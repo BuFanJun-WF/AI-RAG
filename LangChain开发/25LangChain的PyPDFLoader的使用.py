@@ -3,7 +3,7 @@ from langchain_community.document_loaders import PyPDFLoader
 
 
 loader = PyPDFLoader(
-    file_path="./loader_data/", # 文件路径
+    file_path="loader_data/", # 文件路径
     mode="page", # 读取模式，可选page（按页面划分不同的Document）或者single（所有页面直接生成单个Document）
     password="文件密码",
 )

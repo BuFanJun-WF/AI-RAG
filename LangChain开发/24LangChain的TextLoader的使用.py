@@ -3,7 +3,7 @@ from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 loader = TextLoader(
-    file_path="./loader_data/测试文本.txt", # 文件路径
+    file_path="loader_data/测试文本.txt", # 文件路径
     encoding="utf-8",
 )
 # 批量加载 .load()-> Document

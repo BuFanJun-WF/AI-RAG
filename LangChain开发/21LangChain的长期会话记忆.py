@@ -77,7 +77,7 @@ base_chain = prompt | print_history | model | str_parser
 
 
 def get_history(session_id):
-    return FileChatMessageHistory(session_id, "./chat_history")
+    return FileChatMessageHistory(session_id, "chat_history")
 
 
 # 创建一个新的链，对原来链增强功能：自动附加历史消息

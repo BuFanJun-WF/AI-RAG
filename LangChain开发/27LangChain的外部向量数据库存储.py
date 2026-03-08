@@ -1,10 +1,13 @@
-from langchain_core.vectorstores import InMemoryVectorStore
+# 使用外部向量数据库，Chroma
+# 确保langchain-chroma chromadb 这两个库，没有的使用pip install
+from langchain_chroma import Chroma
+
 # 导入文本嵌入式模型
 from langchain_community.embeddings import DashScopeEmbeddings
 from langchain_community.document_loaders import CSVLoader
 
 loader = CSVLoader(
-    file_path="./loader_data/info.csv",
+    file_path="loader_data/info.csv",
     encoding="utf-8",
     source_column="source", # 指定本条数据的来源列
 )
@@ -12,9 +15,10 @@ loader = CSVLoader(
 documents = loader.load()
 # print(documents[0])
 
-vector_store = InMemoryVectorStore (
-    # 表明使用的文本嵌入式模型
-    embedding = DashScopeEmbeddings()
+vector_store = Chroma (
+    collection_name="test", # 当前向量存储名字，类似数据库的表名称
+    embedding_function=DashScopeEmbeddings(),
+    persist_directory="./chroma_data",
 )
 
 # 向量存储的新增、删除、检索
