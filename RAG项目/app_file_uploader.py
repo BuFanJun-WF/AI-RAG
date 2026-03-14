@@ -4,11 +4,11 @@
 pip install streamlit
 
 运行命令：streamlit run .\app_file_uploader.py
-Streamlit：当WEB页面元素发生变化，则代码重新执行一遍
+Streamlit：当WEB页面元素发生变化，则代码重新执行一遍，所以需要使用st.session_state，做页面状态记录器
 """
-
+import time
 import streamlit as st
-
+from knowledge_base import KnowledgeBaseService
 # 添加网页标题
 st.title("知识库更新服务")
 
@@ -18,6 +18,10 @@ uploader_file = st.file_uploader(
     type=["txt"],
     accept_multiple_files=False, # False表示仅接受一个文件的上传
 )
+
+# session_state就是一个字典
+if "service" not in st.session_state:
+    st.session_state["service"] = KnowledgeBaseService()
 
 if uploader_file is not None:
     # 提取文件的信息
@@ -31,6 +35,7 @@ if uploader_file is not None:
     # 获取文件中的内容
     text = uploader_file.getvalue().decode("utf-8")
 
-    # 开发的时候写一下数据看看
-    # st.write(text)
-
+    with st.spinner("载入知识库中。。。"):  # 在spinner内的代码执行过程中，会有一个转圈动画
+        time.sleep(1)
+        res = st.session_state["service"].upload_by_str(text, file_name)
+        st.write(res)
